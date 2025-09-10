@@ -7,12 +7,14 @@ export default function App() {
   async function fetchPins() {
     const res = await fetch('/api/getPins');
     const data = await res.json();
+    console.log(data);
     setPins(data.items || []);
   }
 
   async function fetchBoards() {
     const res = await fetch('/api/getPins');
     const data = await res.json();
+    console.log(data);
     setBoards(data.items || []);
   }
 
