@@ -5,13 +5,13 @@ export default function App() {
   const [boards, setBoards] = useState([]);
 
   async function fetchPins() {
-    const res = await fetch('/.netlify/functions/getPins');
+    const res = await fetch('/api/getPins');
     const data = await res.json();
     setPins(data.items || []);
   }
 
   async function fetchBoards() {
-    const res = await fetch('/.netlify/functions/getBoards');
+    const res = await fetch('/api/getPins');
     const data = await res.json();
     setBoards(data.items || []);
   }
