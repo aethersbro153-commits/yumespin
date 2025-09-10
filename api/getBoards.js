@@ -1,15 +1,26 @@
 export default async function handler(req, res) {
   try {
+    const token = process.env.PINTEREST_ACCESS_TOKEN;
+
+    if (!token) {
+      return res.status(500).json({ error: "Missing Pinterest access token" });
+    }
+
     const response = await fetch("https://api.pinterest.com/v5/user_account", {
       headers: {
-        Authorization: `Bearer ${process.env.PINTEREST_ACCESS_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
+    if (!response.ok) {
+      const text = await response.text();
+      return res.status(response.status).json({ error: text });
+    }
+
     const data = await response.json();
-    res.status(200).json(data);
+    return res.status(200).json(data);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to fetch boards" });
+    console.error("Error in getBoards:", err);
+    return res.status(500).json({ error: err.message });
   }
 }
