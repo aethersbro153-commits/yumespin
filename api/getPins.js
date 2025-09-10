@@ -6,7 +6,7 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: "Missing Pinterest access token" });
     }
 
-    const response = await fetch("https://api.pinterest.com/v5/boards", {
+    const response = await fetch("https://api.pinterest.com/v5/me/pins", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
